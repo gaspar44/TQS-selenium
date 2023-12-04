@@ -3,8 +3,9 @@ Feature: Register
   Scenario Outline: Register at pag
     Given My favorite <browser>
     When I try to register with <name> and <mail>
-    Then I fill all the necessary data
+    And I fill all the necessary data with the glorious <password>
+    Then I remove the created account
     Examples:
-      | browser | name | mail             |
-      | FIREFOX | demo | demo@erHuevo.com |
-      #| CHROME  | demo1 | demo@erGranHuevo.com |
+      | browser | name | mail             | password |
+      | FIREFOX | demo | demo@erHuevo.com |demodemo  |
+      #| CHROME  | demo1 | demo@erGranHuevo.com |demodemo|

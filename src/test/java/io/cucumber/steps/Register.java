@@ -2,11 +2,18 @@ package io.cucumber.steps;
 
 import io.cucumber.WebDriverFactory;
 import io.cucumber.java.After;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.pages.LoggedPage;
+import io.cucumber.pages.RegisterHomePage;
+import io.cucumber.pages.RegisterOrLoginLandingPage;
+import io.cucumber.sample.AbstractUser;
+import io.cucumber.sample.DemoUser;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -14,6 +21,7 @@ public class Register {
     private final String DATA_QA_SELECTOR_PREFIX = "[data-qa='";
     private final String DATA_QA_SELECTOR_SUFFIX = "']";
     private WebDriver driver;
+    private AbstractUser demoUser;
 
     @Given("My favorite {}")
     public void openBrowser(String browserName) throws Exception {
@@ -24,74 +32,26 @@ public class Register {
     }
 
     @When("I try to register with {} and {}")
-    public void register(String name, String mail) {
-        String signupButton = "signup-button";
-        WebElement element = driver.findElement(By.cssSelector(DATA_QA_SELECTOR_PREFIX + signupButton + DATA_QA_SELECTOR_SUFFIX));
-
-        String signupName = "signup-name";
-        driver.findElement(By.cssSelector(DATA_QA_SELECTOR_PREFIX + signupName + DATA_QA_SELECTOR_SUFFIX))
-            .sendKeys(name);
-
-        String signupMail = "signup-email";
-        driver.findElement(By.cssSelector(DATA_QA_SELECTOR_PREFIX + signupMail + DATA_QA_SELECTOR_SUFFIX))
-            .sendKeys(mail);
-
-        element.click();
+    public void register(String name, String mail) throws Exception {
+        demoUser = new DemoUser(name, mail);
+        RegisterOrLoginLandingPage homePage = new RegisterOrLoginLandingPage(driver);
+        homePage.register(demoUser);
     }
 
-    @Then("I fill all the necessary data")
-    public void fill() {
-        String passwordField = "password";
-        String password = "demodemo";
-        driver.findElement(By.cssSelector(DATA_QA_SELECTOR_PREFIX + passwordField + DATA_QA_SELECTOR_SUFFIX))
-            .sendKeys(password);
+    @And("I fill all the necessary data with the glorious {}")
+    public void fill(String password) throws Exception {
+        RegisterHomePage registerHomePage = new RegisterHomePage(driver);
+        demoUser.setPassword(password);
+        String createdUserText = registerHomePage.fillPage(demoUser);
 
-        String firstnameField = "first_name";
-        String firstname = "John";
-        driver.findElement(By.cssSelector(DATA_QA_SELECTOR_PREFIX + firstnameField + DATA_QA_SELECTOR_SUFFIX))
-            .sendKeys(firstname);
+        Assertions.assertEquals(RegisterHomePage.EXPECTED_CREATION_TEXT, createdUserText);
 
-        String lastnameField = "last_name";
-        String lastname = "Smith";
-        driver.findElement(By.cssSelector(DATA_QA_SELECTOR_PREFIX + lastnameField + DATA_QA_SELECTOR_SUFFIX))
-            .sendKeys(lastname);
-
-        String addressField = "address";
-        String address = "Calle 1";
-        driver.findElement(By.cssSelector(DATA_QA_SELECTOR_PREFIX + addressField + DATA_QA_SELECTOR_SUFFIX))
-            .sendKeys(address);
-
-        String stateField = "state";
-        String state = "Barcelona";
-        driver.findElement(By.cssSelector(DATA_QA_SELECTOR_PREFIX + stateField + DATA_QA_SELECTOR_SUFFIX))
-            .sendKeys(state);
-
-        String cityField = "city";
-        String city = "Barcelona";
-        driver.findElement(By.cssSelector(DATA_QA_SELECTOR_PREFIX + cityField + DATA_QA_SELECTOR_SUFFIX))
-            .sendKeys(city);
-
-        String zipCodeField = "zipcode";
-        String zipCode = "01234";
-        driver.findElement(By.cssSelector(DATA_QA_SELECTOR_PREFIX + zipCodeField + DATA_QA_SELECTOR_SUFFIX))
-            .sendKeys(zipCode);
-
-        String mobileNumberField = "mobile_number";
-        String mobileNumber = "1234567";
-        driver.findElement(By.cssSelector(DATA_QA_SELECTOR_PREFIX + mobileNumberField + DATA_QA_SELECTOR_SUFFIX))
-            .sendKeys(mobileNumber);
-
-        String createAccountButton = "create-account";
-        driver.findElement(By.cssSelector(DATA_QA_SELECTOR_PREFIX + createAccountButton + DATA_QA_SELECTOR_SUFFIX))
-            .click();
-
-        String accountCreated = "account-created";
-        String expected = driver.findElement(By.cssSelector(DATA_QA_SELECTOR_PREFIX + accountCreated + DATA_QA_SELECTOR_SUFFIX))
-            .getText();
-
-        Assertions.assertEquals(expected,"ACCOUNT CREATED!");
-
-        driver.findElement(By.linkText("Delete account")).click();
+    }
+    @Then("I remove the created account")
+    public void delete() throws Exception {
+        LoggedPage loggedPage = new LoggedPage(driver);
+        String deletedUserPassword = loggedPage.deleteUser();
+        Assertions.assertEquals(LoggedPage.EXPECTED_DELETE_TEXT, deletedUserPassword);
     }
 
     @After
