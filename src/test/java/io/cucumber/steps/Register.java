@@ -12,14 +12,9 @@ import io.cucumber.pages.RegisterOrLoginLandingPage;
 import io.cucumber.sample.AbstractUser;
 import io.cucumber.sample.DemoUser;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class Register {
-    private final String DATA_QA_SELECTOR_PREFIX = "[data-qa='";
-    private final String DATA_QA_SELECTOR_SUFFIX = "']";
     private WebDriver driver;
     private AbstractUser demoUser;
 

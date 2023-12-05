@@ -32,6 +32,9 @@ public class LoggedPage {
     PageFactory.initElements(driver, this);
     this.driver = driver;
   }
+  public String getUsername() {
+    return username.getText();
+  }
 
   public String deleteUser() throws Exception {
     deleteAccountButton.click();

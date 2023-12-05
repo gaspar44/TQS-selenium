@@ -8,4 +8,4 @@ Feature: Register
     Examples:
       | browser | name | mail             | password |
       | FIREFOX | demo | demo@erHuevo.com |demodemo  |
-      #| CHROME  | demo1 | demo@erGranHuevo.com |demodemo|
+      | CHROME  | demo | demo@erHuevo.com |demodemo|
