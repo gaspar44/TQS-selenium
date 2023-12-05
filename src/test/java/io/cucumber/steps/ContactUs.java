@@ -17,7 +17,7 @@ public class ContactUs {
   private ContactUsPage contactUsPage;
   private String obtainedMessage;
 
-  @Given("My {}")
+  @Given("Be the {}")
   public void openBrowser(String browserName) throws Exception {
     WebDriverFactory.DriverID driverID = WebDriverFactory.DriverID.valueOf(browserName);
     driver = WebDriverFactory.getDriver(driverID);
