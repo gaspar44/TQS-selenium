@@ -14,7 +14,7 @@ import io.cucumber.sample.DemoUser;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 
-public class Register {
+public class RegisterStep {
     private WebDriver driver;
     private AbstractUser demoUser;
 

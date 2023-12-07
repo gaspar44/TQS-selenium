@@ -12,7 +12,7 @@ import io.cucumber.sample.DemoUser;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 
-public class ContactUs {
+public class ContactUsStep {
   private WebDriver driver;
   private ContactUsPage contactUsPage;
   private String obtainedMessage;

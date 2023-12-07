@@ -2,19 +2,17 @@ package io.cucumber.steps;
 
 import io.cucumber.UIHelper;
 import io.cucumber.WebDriverFactory;
-import io.cucumber.java.an.E;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.pages.LoggedPage;
-import io.cucumber.pages.RegisterHomePage;
 import io.cucumber.pages.RegisterOrLoginLandingPage;
 import io.cucumber.sample.AbstractUser;
 import io.cucumber.sample.DemoUser;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 
-public class Login {
+public class LoginStep {
   private WebDriver driver;
   private AbstractUser user;
 
