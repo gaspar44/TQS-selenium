@@ -7,5 +7,5 @@ Feature: Search products
 
     Examples:
       |browser| category|
-      #|FIREFOX| T-Shirt |
+      |FIREFOX| T-Shirt |
       |CHROME | Jeans|
