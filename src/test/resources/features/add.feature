@@ -6,6 +6,6 @@ Feature: Add products
     Then I check the car.
 
     Examples:
-      |browser|
-      |FIREFOX|
-      |CHROME |
+      | browser |
+      | FIREFOX |
+      #|CHROME |

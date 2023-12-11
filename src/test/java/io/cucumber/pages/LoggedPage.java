@@ -27,10 +27,8 @@ public class LoggedPage {
   @FindBy(css = DATA_QA_SELECTOR_PREFIX + CONTINUE_BUTTON + DATA_QA_SELECTOR_SUFFIX)
   private WebElement continueButton;
 
-  private WebDriver driver;
   public LoggedPage(WebDriver driver) {
     PageFactory.initElements(driver, this);
-    this.driver = driver;
   }
   public String getUsername() {
     return username.getText();

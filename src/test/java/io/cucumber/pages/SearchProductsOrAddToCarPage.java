@@ -1,14 +1,18 @@
 package io.cucumber.pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SearchProductsPage {
+public class SearchProductsOrAddToCarPage {
   public static final String SEARCHED_PRODUCTS = "SEARCHED PRODUCTS";
   @FindBy(id = "search_product")
   private WebElement searchProductBar;
@@ -35,7 +39,7 @@ public class SearchProductsPage {
   private List<WebElement> searchResultsNames;
 
   private WebDriver driver;
-  public SearchProductsPage(WebDriver driver) {
+  public SearchProductsOrAddToCarPage(WebDriver driver) {
     PageFactory.initElements(driver, this);
     this.driver = driver;
   }
@@ -51,5 +55,23 @@ public class SearchProductsPage {
         .stream()
         .map(WebElement::getText)
         .collect(Collectors.toList());
+  }
+
+  public void addProductsToCard() {
+    WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5L));
+    webDriverWait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOf(addToCartButton1)));
+    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", addToCartButton1);
+    addToCartButton1.click();
+
+    webDriverWait.until(ExpectedConditions.refreshed(ExpectedConditions.elementToBeClickable(continueShoppingButton)));
+    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", continueShoppingButton);
+    continueShoppingButton.click();
+
+    webDriverWait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOf(addToCartButton2)));
+    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", addToCartButton2);
+    addToCartButton2.click();
+    webDriverWait.until(ExpectedConditions.refreshed(ExpectedConditions.elementToBeClickable(continueShoppingButton)));
+    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", continueShoppingButton);
+    viewCartButton.click();
   }
 }

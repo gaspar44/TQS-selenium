@@ -5,17 +5,15 @@ import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.pages.SearchProductsPage;
+import io.cucumber.pages.SearchProductsOrAddToCarPage;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
 public class SearchStep {
   private WebDriver driver;
-  SearchProductsPage searchProductsPage;
+  SearchProductsOrAddToCarPage searchProductsPage;
 
   @Given("I use {} for search products")
   public void openBrowser(String browserName) throws Exception {
@@ -26,9 +24,9 @@ public class SearchStep {
 
   @When("I type a {}.")
   public void search(String category) throws Exception {
-    searchProductsPage = new SearchProductsPage(driver);
+    searchProductsPage = new SearchProductsOrAddToCarPage(driver);
     String searchTextBarContent = searchProductsPage.search(category);
-    Assertions.assertEquals(SearchProductsPage.SEARCHED_PRODUCTS, searchTextBarContent);
+    Assertions.assertEquals(SearchProductsOrAddToCarPage.SEARCHED_PRODUCTS, searchTextBarContent);
   }
 
   @Then("I see a {} result.")
