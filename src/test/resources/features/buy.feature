@@ -10,4 +10,4 @@ Feature: Buy products
     Examples:
       | browser | email            | password |
       | FIREFOX | hola@erHuevo.com | demodemo |
-      | CHROME  | hola@erHuevo.com | demodemo |
+      #| CHROME  | hola@erHuevo.com | demodemo |

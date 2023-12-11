@@ -2,11 +2,13 @@ package io.cucumber.steps;
 
 import io.cucumber.UIHelper;
 import io.cucumber.WebDriverFactory;
+import io.cucumber.java.After;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.pages.RegisterOrLoginLandingPage;
 import io.cucumber.pages.SearchProductsOrAddToCarPage;
+import io.cucumber.pages.ShoppingCarPage;
 import io.cucumber.pages.ShoppingReviewPage;
 import io.cucumber.sample.AbstractUser;
 import io.cucumber.sample.DemoUser;
@@ -40,7 +42,19 @@ public class PaymentStep {
 
   @And("I try to pay.")
   public void purchase() {
-    ShoppingReviewPage reviewPage = new ShoppingReviewPage(driver);
+    ShoppingCarPage carPage = new ShoppingCarPage(driver);
+    ShoppingReviewPage reviewPage = carPage.proceed();
+  }
+  @Then("I finish.")
+  public void remove() throws Exception {
+    UIHelper.removeUser(driver);
+  }
 
+  @After
+  public void shutdown() {
+    if (driver != null) {
+      driver.quit();
+      driver = null;
+    }
   }
 }

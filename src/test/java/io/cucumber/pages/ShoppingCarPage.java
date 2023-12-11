@@ -1,11 +1,16 @@
 package io.cucumber.pages;
 
 import io.cucumber.sample.Product;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +30,13 @@ public class ShoppingCarPage {
   @FindBy(css = "a[class='btn btn-default check_out']")
   private WebElement proceedToCheckoutButton;
 
-  List<Product> products;
+  private List<Product> products;
+  private WebDriver driver;
+
 
   public ShoppingCarPage(WebDriver driver) {
     PageFactory.initElements(driver, this);
+    this.driver = driver;
     this.products = new ArrayList<>();
     // All should be the same size
     for(int i = 0; i < productsQuantities.size(); i++){
@@ -42,5 +50,13 @@ public class ShoppingCarPage {
 
   public List<Product> getProducts() {
     return this.products;
+  }
+
+  public ShoppingReviewPage proceed() {
+    WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5L));
+    webDriverWait.until(ExpectedConditions.elementToBeClickable(proceedToCheckoutButton));
+    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", proceedToCheckoutButton);
+    proceedToCheckoutButton.click();
+    return new ShoppingReviewPage(driver);
   }
 }

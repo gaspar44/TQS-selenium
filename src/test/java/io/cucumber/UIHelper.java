@@ -1,5 +1,6 @@
 package io.cucumber;
 
+import io.cucumber.pages.LoggedPage;
 import io.cucumber.pages.RegisterHomePage;
 import io.cucumber.pages.RegisterOrLoginLandingPage;
 import io.cucumber.sample.AbstractUser;
@@ -12,5 +13,10 @@ public class UIHelper {
     homePage.register(user);
     RegisterHomePage registerHomePage = new RegisterHomePage(driver);
     registerHomePage.fillPage(user);
+  }
+
+  public static void removeUser(WebDriver driver) throws Exception {
+    LoggedPage loggedPage = new LoggedPage(driver);
+    loggedPage.deleteUser();
   }
 }
