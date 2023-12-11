@@ -1,11 +1,11 @@
 Feature: Search products
 
-  Scenario Outline: Search and add two products to the shopping car
-    Given The <browser> that I use for search products
-    When I add the first two products to the car.
-    Then I check the car.
+  Scenario Outline: Search products
+    Given I use <browser> for search products
+    When I type a <category>.
+    Then I see a <category> result.
 
     Examples:
-      |browser|
-      |FIREFOX|
-      |CHROME |
+      |browser| category|
+      #|FIREFOX| T-Shirt |
+      |CHROME | Jeans|

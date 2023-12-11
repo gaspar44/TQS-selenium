@@ -5,7 +5,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class SearchProductsPage {
+  public static final String SEARCHED_PRODUCTS = "SEARCHED PRODUCTS";
   @FindBy(id = "search_product")
   private WebElement searchProductBar;
 
@@ -23,9 +27,29 @@ public class SearchProductsPage {
 
   @FindBy(css = "a[href='/view_cart'] u")
   private WebElement viewCartButton;
+
+  @FindBy(css = ".title.text-center")
+  private WebElement titleTextCenter;
+
+  @FindBy(xpath = "//div[contains(@class, 'productinfo text-center')]//p")
+  private List<WebElement> searchResultsNames;
+
   private WebDriver driver;
   public SearchProductsPage(WebDriver driver) {
     PageFactory.initElements(driver, this);
     this.driver = driver;
+  }
+
+  public String search(String category) {
+    searchProductBar.sendKeys(category);
+    submitButton.click();
+    return titleTextCenter.getText();
+  }
+
+  public List<String> getProductsSearchNames() {
+    return searchResultsNames
+        .stream()
+        .map(WebElement::getText)
+        .collect(Collectors.toList());
   }
 }
