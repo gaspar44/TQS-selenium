@@ -22,6 +22,9 @@ public class ShoppingCarPage {
   @FindBy(xpath = "//p[contains(@class, 'cart_total_price')]")
   private List<WebElement> totalPrice;
 
+  @FindBy(css = "a[class='btn btn-default check_out']")
+  private WebElement proceedToCheckoutButton;
+
   List<Product> products;
 
   public ShoppingCarPage(WebDriver driver) {
