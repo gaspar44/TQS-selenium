@@ -3,7 +3,6 @@ package io.cucumber.sample;
 public abstract class AbstractUser {
   protected String username;
   protected String email;
-
   protected String password;
   protected String userFirstname;
   protected String userLastname;

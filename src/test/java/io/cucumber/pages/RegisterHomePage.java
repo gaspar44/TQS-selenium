@@ -81,13 +81,4 @@ public class RegisterHomePage {
     continueButton.click();
     return obtianedText;
   }
-
-  public void removeUser() throws Exception {
-
-  }
-  public void shutdown() {
-    if (driver != null) {
-      driver = null;
-    }
-  }
 }

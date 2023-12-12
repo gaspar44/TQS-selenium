@@ -44,6 +44,9 @@ public class PaymentStep {
   public void purchase() {
     ShoppingCarPage carPage = new ShoppingCarPage(driver);
     ShoppingReviewPage reviewPage = carPage.proceed();
+
+    AbstractUser expectedUser = reviewPage.getUserFromDeliveryAddress(user.getUsername(), user.getEmail());;
+
   }
   @Then("I finish.")
   public void remove() throws Exception {
