@@ -12,6 +12,7 @@ import io.cucumber.pages.ShoppingCarPage;
 import io.cucumber.pages.ShoppingReviewPage;
 import io.cucumber.sample.AbstractUser;
 import io.cucumber.sample.DemoUser;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 
 public class PaymentStep {
@@ -45,7 +46,31 @@ public class PaymentStep {
     ShoppingCarPage carPage = new ShoppingCarPage(driver);
     ShoppingReviewPage reviewPage = carPage.proceed();
 
-    AbstractUser expectedUser = reviewPage.getUserFromDeliveryAddress(user.getUsername(), user.getEmail());;
+    AbstractUser obtainedUserFromDeliveryAddress = reviewPage.getUserFromDeliveryAddress(user.getUsername(), user.getEmail());;
+
+    Assertions.assertNotNull(obtainedUserFromDeliveryAddress);
+    Assertions.assertEquals(user.getUsername(), obtainedUserFromDeliveryAddress.getUsername());
+    Assertions.assertEquals(user.getEmail(), obtainedUserFromDeliveryAddress.getEmail());
+    Assertions.assertEquals(user.getUserFirstname(), obtainedUserFromDeliveryAddress.getUserFirstname());
+    Assertions.assertEquals(user.getUserLastname(), obtainedUserFromDeliveryAddress.getUserLastname());
+    Assertions.assertEquals(user.getAddress(), obtainedUserFromDeliveryAddress.getAddress());
+    Assertions.assertEquals(user.getCity(), obtainedUserFromDeliveryAddress.getCity());
+    Assertions.assertEquals(user.getState(), obtainedUserFromDeliveryAddress.getState());
+    Assertions.assertEquals(user.getZipCode(), obtainedUserFromDeliveryAddress.getZipCode());
+    Assertions.assertEquals(user.getPhone(), obtainedUserFromDeliveryAddress.getPhone());
+
+    AbstractUser obtainedUserFromInvoiceAddress = reviewPage.getUserFromDeliveryAddress(user.getUsername(), user.getEmail());;
+
+    Assertions.assertNotNull(obtainedUserFromInvoiceAddress);
+    Assertions.assertEquals(user.getUsername(), obtainedUserFromInvoiceAddress.getUsername());
+    Assertions.assertEquals(user.getEmail(), obtainedUserFromInvoiceAddress.getEmail());
+    Assertions.assertEquals(user.getUserFirstname(), obtainedUserFromInvoiceAddress.getUserFirstname());
+    Assertions.assertEquals(user.getUserLastname(), obtainedUserFromInvoiceAddress.getUserLastname());
+    Assertions.assertEquals(user.getAddress(), obtainedUserFromInvoiceAddress.getAddress());
+    Assertions.assertEquals(user.getCity(), obtainedUserFromInvoiceAddress.getCity());
+    Assertions.assertEquals(user.getState(), obtainedUserFromInvoiceAddress.getState());
+    Assertions.assertEquals(user.getZipCode(), obtainedUserFromInvoiceAddress.getZipCode());
+    Assertions.assertEquals(user.getPhone(), obtainedUserFromInvoiceAddress.getPhone());
 
   }
   @Then("I finish.")
