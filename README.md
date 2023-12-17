@@ -5,8 +5,7 @@ We're going to make some test at the page [automation exercises](https://automat
 ### Preconditions
 We are going to use the selenium hub approach to be able to test in most browsers, for this reason, the official selenium's
 docker images will be used.
-1. Have [docker compose](https://docs.docker.com/compose/i
-   nstall/linux/) installed
+1. Have [docker compose](https://docs.docker.com/compose/install/linux/) installed
 2. The selenium hub will run in the port 4444 at the localhost. This port must be free.
 3. To execute the containers , execute the command `docker compose up -d`
 4. To check any browser execution you can check the container's ip with the command `docker inspect <containerName>`, access via your default browser to the "http://ContainerIP:7900", click on "Connect" and you may be able to check the browser's activity.
