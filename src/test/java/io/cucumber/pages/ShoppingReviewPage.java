@@ -69,4 +69,9 @@ public class ShoppingReviewPage {
     ret.setPhone(elements.get(7));
     return ret;
   }
+
+  public PaymentPage proceed() {
+      placeOrderButton.click();
+      return new PaymentPage(driver);
+  }
 }

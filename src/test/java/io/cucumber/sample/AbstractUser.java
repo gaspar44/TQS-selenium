@@ -11,6 +11,7 @@ public abstract class AbstractUser {
   protected String city;
   protected String zipCode;
   protected String phone;
+  protected CreditCard card;
 
   protected AbstractUser(String username, String email) {
     this.username = username;
@@ -29,6 +30,13 @@ public abstract class AbstractUser {
     return userFirstname == null ? "John" : userFirstname;
   }
 
+  public CreditCard getCard() {
+    if (this.card == null) {
+      this.card = CreditCard.getDefaultCard(this.getUserFirstname() + " " + this.getUserLastname());
+    }
+
+    return this.card;
+  }
 
   public String getUserLastname() {
     return userLastname == null ? "Smith" : userLastname;
@@ -64,6 +72,10 @@ public abstract class AbstractUser {
 
   public void setUserLastname(String userLastname) {
     this.userLastname = userLastname;
+  }
+
+  public void setCreditCard(CreditCard card) {
+    this.card = card;
   }
 
   public void setAddress(String address) {

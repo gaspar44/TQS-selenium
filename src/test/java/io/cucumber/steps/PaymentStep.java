@@ -7,6 +7,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.pages.PaymentPage;
 import io.cucumber.pages.SearchProductsOrAddToCarPage;
 import io.cucumber.pages.ShoppingCarPage;
 import io.cucumber.pages.ShoppingReviewPage;
@@ -59,7 +60,7 @@ public class PaymentStep {
     Assertions.assertEquals(user.getZipCode(), obtainedUserFromDeliveryAddress.getZipCode());
     Assertions.assertEquals(user.getPhone(), obtainedUserFromDeliveryAddress.getPhone());
 
-    AbstractUser obtainedUserFromInvoiceAddress = reviewPage.getUserFromDeliveryAddress(user.getUsername(), user.getEmail());;
+    AbstractUser obtainedUserFromInvoiceAddress = reviewPage.getUserFromInvoiceAddress(user.getUsername(), user.getEmail());;
 
     Assertions.assertNotNull(obtainedUserFromInvoiceAddress);
     Assertions.assertEquals(user.getUsername(), obtainedUserFromInvoiceAddress.getUsername());
@@ -72,6 +73,9 @@ public class PaymentStep {
     Assertions.assertEquals(user.getZipCode(), obtainedUserFromInvoiceAddress.getZipCode());
     Assertions.assertEquals(user.getPhone(), obtainedUserFromInvoiceAddress.getPhone());
 
+    PaymentPage paymentPage = reviewPage.proceed();
+    String obtainedText = paymentPage.fill(user);
+    Assertions.assertEquals(PaymentPage.EXPECTED_ORDER_PLACEMENT, obtainedText);
   }
   @Then("I finish.")
   public void remove() throws Exception {
