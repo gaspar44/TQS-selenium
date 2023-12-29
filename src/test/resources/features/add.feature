@@ -8,4 +8,4 @@ Feature: Add products
     Examples:
       | browser |
       | FIREFOX |
-      #|CHROME |
+      | CHROME  |
